@@ -1,7 +1,8 @@
 using Test
 using Trees
 
-@test Trees.example(-1400, -1401) ≈ -1399.6867383124818
+a = (@test_logs (:info, r"^This is") Trees.example(-1400, -1401))
+@test a ≈ -1399.6867383124818
 
 @testset "building trees & path to the root" begin
 # "begin" starts a new local scope: different scope for different test sets
@@ -10,7 +11,7 @@ addedge!(tre1, 0,1)
 addedge!(tre1, 0,2, 0.22)
 addedge!(tre1, 2,3, 0.11)
 addedge!(tre1, 2,4)
-@test_nowarn show(tre1)
+@test_nowarn show(devnull, tre1)
 @test length(tre1.edge)==4
 
 # error below because Tree immutable:
@@ -21,7 +22,7 @@ push!(tre1.label, 1=>"orang", 2=>"gorilla", 3=>"chimp", 4=>"human")
 # error below below Tree immutable:
 @test_throws Exception tre1.foo = 8
 
-@test_nowarn show(tre1.edge[2])
+@test_nowarn show(devnull, tre1.edge[2])
 # no problem below, because Edges are mutable:
 tre1.edge[2].length = 0.55
 

@@ -38,7 +38,7 @@ end
 # if no arguments at all: create empty tree with String labels, and foo=0
 Tree() = Tree{String}(Vector{Edge}(), Dict{Int64,String}(), 0)
 # given edges only: declare labels of type String, foo = 0
-Tree(edge::Vector{Edge}) =  Tree{String}(Vector{Edge}(), Dict{Int64,String}(), 0)
+Tree(edge::Vector{Edge}) =  Tree{String}(edge, Dict{Int64,String}(), 0)
 # given edges and labels: extract type of labels to get T and create the tree
 Tree(edge::Vector{Edge}, label::AbstractDict, foo=0::Int) =
   Tree{eltype(values(label))}(edge, label, foo)
